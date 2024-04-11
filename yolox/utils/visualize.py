@@ -21,7 +21,7 @@ def vis(img, boxes, scores, cls_ids, conf=0.5, class_names=None):
         x1 = int(box[2])
         y1 = int(box[3])
 
-        color = (_COLORS[cls_id] * 255).astype(np.uint8).tolist()
+        color = (_COLORS[cls_id] * 255).astype(bool).tolist()
         text = '{}:{:.1f}%'.format(class_names[cls_id], score * 100)
         txt_color = (0, 0, 0) if np.mean(_COLORS[cls_id]) > 0.5 else (255, 255, 255)
         font = cv2.FONT_HERSHEY_SIMPLEX
@@ -29,7 +29,7 @@ def vis(img, boxes, scores, cls_ids, conf=0.5, class_names=None):
         txt_size = cv2.getTextSize(text, font, 0.4, 1)[0]
         cv2.rectangle(img, (x0, y0), (x1, y1), color, 2)
 
-        txt_bk_color = (_COLORS[cls_id] * 255 * 0.7).astype(np.uint8).tolist()
+        txt_bk_color = (_COLORS[cls_id] * 255 * 0.7).astype(bool).tolist()
         cv2.rectangle(
             img,
             (x0, y0 + 1),
@@ -53,7 +53,7 @@ def plot_tracking(image, tlwhs, obj_ids, scores=None, frame_id=0, fps=0., ids2=N
     im = np.ascontiguousarray(np.copy(image))
     im_h, im_w = im.shape[:2]
 
-    top_view = np.zeros([im_w, im_w, 3], dtype=np.uint8) + 255
+    top_view = np.zeros([im_w, im_w, 3], dtype=bool) + 255
 
     #text_scale = max(1, image.shape[1] / 1600.)
     #text_thickness = 2

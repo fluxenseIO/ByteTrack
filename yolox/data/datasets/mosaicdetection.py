@@ -97,7 +97,7 @@ class MosaicDetection(Dataset):
                 # generate output mosaic image
                 (h, w, c) = img.shape[:3]
                 if i_mosaic == 0:
-                    mosaic_img = np.full((input_h * 2, input_w * 2, c), 114, dtype=np.uint8)
+                    mosaic_img = np.full((input_h * 2, input_w * 2, c), 114, dtype=bool)
 
                 # suffix l means large image, while s means small image in mosaic aug.
                 (l_x1, l_y1, l_x2, l_y2), (s_x1, s_y1, s_x2, s_y2) = get_mosaic_coordinate(
@@ -193,7 +193,7 @@ class MosaicDetection(Dataset):
         target_h, target_w = origin_img.shape[:2]
         padded_img = np.zeros(
             (max(origin_h, target_h), max(origin_w, target_w), 3)
-        ).astype(np.uint8)
+        ).astype(bool)
         padded_img[:origin_h, :origin_w] = cp_img
 
         x_offset, y_offset = 0, 0

@@ -15,7 +15,7 @@ class STrack(BaseTrack):
     def __init__(self, tlwh, score):
 
         # wait activate
-        self._tlwh = np.asarray(tlwh, dtype=np.float)
+        self._tlwh = np.asarray(tlwh, dtype=float)
         self.kalman_filter = None
         self.mean, self.covariance = None, None
         self.is_activated = False
@@ -178,7 +178,7 @@ class BYTETracker(object):
         inds_low = scores > 0.1
         inds_high = scores < self.args.track_thresh
 
-        inds_second = np.logical_and(inds_low, inds_high)
+        inds_second = np.logical_and(inds_low, inds_high).bool()
         dets_second = bboxes[inds_second]
         dets = bboxes[remain_inds]
         scores_keep = scores[remain_inds]
